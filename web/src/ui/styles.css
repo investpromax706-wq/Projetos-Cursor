@@ -1,0 +1,4 @@
+html, body, #root { height: 100%; }
+body { margin: 0; background: #fafafa; color: #111827; }
+input, select, button { padding: 8px; }
+button { cursor: pointer; }

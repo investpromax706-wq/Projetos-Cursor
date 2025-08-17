@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: barbearia-pwa
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: |
+      npm install
+      cd ../web && npm install && npm run build && cd ../server && rm -rf public && mkdir -p public && cp -r ../web/dist/* public/
+    startCommand: node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true

@@ -36,6 +36,23 @@ npm --prefix /workspace/web run build
 npm --prefix /workspace/web run preview
 ```
 
+## Deploy (Render.com)
+- Crie um novo Web Service apontando para a pasta `server/` deste repositório.
+- Configure Build Command:
+```bash
+npm install
+cd ../web && npm install && npm run build && cd ../server && rm -rf public && mkdir -p public && cp -r ../web/dist/* public/
+```
+- Configure Start Command:
+```bash
+node src/index.js
+```
+- Variáveis:
+  - `NODE_ENV=production`
+  - `JWT_SECRET` (gerar no painel)
+
+O backend irá servir o frontend estático a partir de `server/public`. A URL permanente é a do serviço Render.
+
 ## Estrutura
 - `server/`: API REST + banco SQLite
 - `web/`: PWA React

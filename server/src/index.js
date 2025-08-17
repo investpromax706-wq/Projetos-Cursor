@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs');
 
 const db = require('./db');
 const { createToken, authMiddleware } = require('./auth');
@@ -45,6 +47,16 @@ app.use('/api/cash', authMiddleware, require('./routes/cash'));
 app.use('/api/inventory', authMiddleware, require('./routes/inventory'));
 
 app.get('/', (req, res) => res.json({ ok: true }));
+
+// Serve frontend if built into server/public
+const publicDir = path.join(__dirname, '..', 'public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path === '/me') return next();
+    res.sendFile(path.join(publicDir, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

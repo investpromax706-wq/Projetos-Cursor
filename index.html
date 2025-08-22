@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="PWA To-Do List simples, responsivo e offline." />
+  <meta name="theme-color" content="#14b8a6" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <title>To‑Do PWA</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="app-title">To‑Do</h1>
+    <div class="header-actions">
+      <button id="installBtn" class="btn ghost" aria-label="Instalar aplicativo" hidden>Instalar</button>
+      <button id="themeToggle" class="btn ghost" aria-label="Alternar tema" title="Alternar tema">🌗</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="add-task" aria-labelledby="addTaskTitle">
+      <h2 id="addTaskTitle" class="sr-only">Adicionar tarefa</h2>
+      <form id="taskForm" autocomplete="off">
+        <input id="taskTitle" name="title" type="text" placeholder="Nova tarefa" required aria-label="Título da tarefa" />
+        <input id="taskTags" name="tags" type="text" placeholder="Categorias/tags (separe por vírgula)" aria-label="Tags" />
+        <select id="taskPriority" name="priority" aria-label="Prioridade">
+          <option value="media" selected>Prioridade: média</option>
+          <option value="alta">Prioridade: alta</option>
+          <option value="baixa">Prioridade: baixa</option>
+        </select>
+        <button type="submit" class="btn primary">Adicionar</button>
+      </form>
+    </section>
+
+    <section class="controls" aria-label="Controles de lista">
+      <div class="filters" role="tablist" aria-label="Filtros">
+        <button class="chip active" data-filter="todas" role="tab" aria-selected="true">Todas</button>
+        <button class="chip" data-filter="pendentes" role="tab" aria-selected="false">Pendentes</button>
+        <button class="chip" data-filter="concluidas" role="tab" aria-selected="false">Concluídas</button>
+      </div>
+      <input id="search" type="search" placeholder="Buscar por título ou tag" aria-label="Buscar" />
+    </section>
+
+    <section aria-labelledby="listTitle">
+      <h2 id="listTitle" class="sr-only">Lista de tarefas</h2>
+      <ul id="taskList" class="task-list" aria-live="polite"></ul>
+      <p id="emptyState" class="empty" hidden>Nenhuma tarefa encontrada.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+    <span id="toastMsg">Atualização disponível</span>
+    <button id="toastAction" class="btn link">Recarregar</button>
+  </div>
+
+  <noscript>
+    <p style="padding:1rem">Este app precisa de JavaScript para funcionar.</p>
+  </noscript>
+
+  <script defer src="/scripts/app.js"></script>
+</body>
+</html>
+
